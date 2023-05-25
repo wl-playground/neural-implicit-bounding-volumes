@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import matplotlib
 import matplotlib.pyplot as plt
 
 import numpy as np
@@ -28,6 +29,8 @@ class ImageRenderer(ABC):
 
 class ComparisonRenderer(ImageRenderer):
     def render(self, original, reconstruction, vmin=0, vmax=255):
+        matplotlib.rc('image', cmap='gray')
+
         reconstruction = super().model_output_to_matlibplot(reconstruction)
 
         fig, axs = plt.subplots(2, 1, figsize=(20, 11), gridspec_kw={'height_ratios': [2, 2]})
