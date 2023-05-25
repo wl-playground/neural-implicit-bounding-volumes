@@ -6,14 +6,15 @@ from src.model.kerasmlp.BinaryClassification import BinaryClassification
 # instrument KerasMLP BinaryClassification model class with metrics
 class BinaryClassificationWithMetrics(BinaryClassification):
     def __init__(self, optimiser, loss, hidden_layers, width, input_dimensions, output_dimensions, metrics_registry):
-        super().__init__(optimiser, loss, hidden_layers, width, input_dimensions, output_dimensions, metrics_registry)
+        super().__init__(optimiser, loss, hidden_layers, width, input_dimensions, output_dimensions)
+        self.metrics_registry = metrics_registry
 
     def build(self):
         # register metric for build time
         start_time = time.perf_counter()
         self.metrics_registry.register_counter_metric("build")
 
-        self.model.build()
+        super().build()
 
         elapsed_time = time.perf_counter() - start_time
         self.metrics_registry.add("build", elapsed_time)
@@ -24,7 +25,7 @@ class BinaryClassificationWithMetrics(BinaryClassification):
         start_time = time.perf_counter()
         self.metrics_registry.register_counter_metric("compile")
 
-        self.model.compile()
+        super().compile()
 
         elapsed_time = time.perf_counter() - start_time
         self.metrics_registry.add("compile", elapsed_time)
@@ -35,7 +36,7 @@ class BinaryClassificationWithMetrics(BinaryClassification):
         start_time = time.perf_counter()
         self.metrics_registry.register_counter_metric("train")
 
-        self.model.train(x_train, y_target, batch_size, epochs, verbose_mode, class_weight)
+        super().train(x_train, y_target, batch_size, epochs, verbose_mode, class_weight)
 
         elapsed_time = time.perf_counter() - start_time
         self.metrics_registry.add("train", elapsed_time)
@@ -51,7 +52,7 @@ class BinaryClassificationWithMetrics(BinaryClassification):
         start_time = time.perf_counter()
         self.metrics_registry.register_counter_metric("inference")
 
-        result = self.model.inference(input_value, verbose_mode)
+        result = super().inference(input_value, verbose_mode)
 
         elapsed_time = time.perf_counter() - start_time
         self.metrics_registry.add("inference", elapsed_time)
@@ -78,7 +79,7 @@ class BinaryClassificationWithMetrics(BinaryClassification):
         return result
 
     def save_weights(self, filename='localWeights.h5'):
-        self.model.save_weights(filename)
+        super().save_weights(filename)
 
     def download_weights(self, filename='localWeights.h5'):
-        self.model.download_weights(filename)
+        super().download_weights(filename)

@@ -6,10 +6,9 @@ from src.model.kerasmlp.KerasMLP import KerasMLP
 
 
 class BinaryClassification(KerasMLP):
-    def __init__(self, optimiser, loss, hidden_layers, width, input_dimensions, output_dimensions, metrics_registry):
+    def __init__(self, optimiser, loss, hidden_layers, width, input_dimensions, output_dimensions):
         super().__init__()
         self.model = keras.Sequential()
-        self.metrics_registry = metrics_registry
         self.optimiser = optimiser
         self.loss = loss
         self.hidden_layers = hidden_layers
