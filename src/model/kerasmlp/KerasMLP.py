@@ -1,10 +1,11 @@
 from abc import ABC, abstractmethod
-from google.colab import files
+
+from src.model.Model import Model
 
 
-class Model(ABC):
+class KerasMLP(Model, ABC):
     def __init__(self):
-        self.model = None
+        super().__init__()
 
     @abstractmethod
     def build(self):
@@ -32,8 +33,8 @@ class Model(ABC):
 
     @abstractmethod
     def save_weights(self, filename='localWeights.h5'):
-        self.model.save_weights(filename)
+        super().save_weights(filename)
 
     @abstractmethod
     def download_weights(self, filename='localWeights.h5'):
-        files.download(filename)
+        super().download_weights(filename)

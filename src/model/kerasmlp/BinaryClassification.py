@@ -4,10 +4,10 @@ import numpy as np
 from tensorflow import keras
 from keras import layers
 
-from src.model.Model import Model
+from src.model.kerasmlp.KerasMLP import KerasMLP
 
 
-class KerasBinaryClassificationMLP(Model):
+class BinaryClassification(KerasMLP):
     def __init__(self, optimiser, loss, hidden_layers, width, input_dimensions, output_dimensions, metrics_registry):
         super().__init__()
         self.model = keras.Sequential()
@@ -20,9 +20,6 @@ class KerasBinaryClassificationMLP(Model):
         self.output_dimensions = output_dimensions
 
     def build(self):
-        start_time = time.perf_counter()
-        self.metrics_registry.register_counter_metric("build")
-
         # TODO: look at input_shape value
         self.model.add(keras.layers.Dense(units=self.input_dimensions, activation='linear', input_shape=[2]))
 
@@ -32,22 +29,10 @@ class KerasBinaryClassificationMLP(Model):
         self.model.add(layers.Dense(self.output_dimensions, activation="sigmoid"))
         self.model.summary()
 
-        elapsed_time = time.perf_counter() - start_time
-        self.metrics_registry.add("build", elapsed_time)
-
     def compile(self):
-        start_time = time.perf_counter()
-        self.metrics_registry.register_counter_metric("compile")
-
         self.model.compile(optimizer=self.optimiser, loss=self.loss, metrics=['accuracy'])
 
-        elapsed_time = time.perf_counter() - start_time
-        self.metrics_registry.add("compile", elapsed_time)
-
     def train(self, x_train, y_target, batch_size, epochs, verbose_mode, class_weight=None):
-        start_time = time.perf_counter()
-        self.metrics_registry.register_counter_metric("train")
-
         verbose_mode = self.enable_verbose_output(verbose_mode)
 
         # model.fit returns a history of the model, currently not used
@@ -61,9 +46,6 @@ class KerasBinaryClassificationMLP(Model):
             class_weight=class_weight
         )
 
-        elapsed_time = time.perf_counter() - start_time
-        self.metrics_registry.add("train", elapsed_time)
-
     def validate(self):
         pass
 
@@ -72,9 +54,6 @@ class KerasBinaryClassificationMLP(Model):
 
     # TODO: improve inference()
     def inference(self, input_value, verbose_mode=1):
-        start_time = time.perf_counter()
-        self.metrics_registry.register_counter_metric("inference")
-
         y_pred = []
 
         for x in range(input_value.shape[0]):
@@ -105,28 +84,6 @@ class KerasBinaryClassificationMLP(Model):
             y_pred_flatten.append(row)
 
         y_pred_flatten = np.asarray(y_pred_flatten)
-
-        # register metrics for model performance
-        self.metrics_registry.register_counter_metric("true_negative")
-        self.metrics_registry.register_counter_metric("true_positive")
-        self.metrics_registry.register_counter_metric("false_negative")
-        self.metrics_registry.register_counter_metric("false_positive")
-
-        for row in range(input_value.shape[0]):
-            for col in range(input_value.shape[1]):
-                if y_pred_flatten[row, col] == 0 and input_value[row, col] == 0:
-                    self.metrics_registry.increment_counter_metric("true_negative")
-                elif y_pred_flatten[row, col] == 1 and input_value[row, col] == 1:
-                    self.metrics_registry.increment_counter_metric("true_positive")
-                elif y_pred_flatten[row, col] == 0 and input_value[row, col] == 1:
-                    self.metrics_registry.increment_counter_metric("false_negative")
-                elif y_pred_flatten[row, col] == 1 and input_value[row, col] == 0:
-                    self.metrics_registry.increment_counter_metric("false_positive")
-                else:
-                    raise ValueError("data error, unknown y_pred and y_target combination")
-
-        elapsed_time = time.perf_counter() - start_time
-        self.metrics_registry.add("inference", elapsed_time)
 
         return y_pred_flatten
 

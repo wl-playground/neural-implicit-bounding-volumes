@@ -1,8 +1,8 @@
-from src.model.kerasmlp.KerasBinaryClassificationMLP import KerasBinaryClassificationMLP
+from src.model.kerasmlp.BinaryClassification import BinaryClassification
 from src.metrics.MetricsRegistry import MetricsRegistry
 
 if __name__ == "__main__":
-    model = KerasBinaryClassificationMLP(
+    model = BinaryClassification(
         "adam",
         "bce",
         2,
