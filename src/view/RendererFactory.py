@@ -1,24 +1,9 @@
 from enum import Enum
-from abc import ABC, abstractmethod
+
+from src.view.ImageRenderer import ComparisonRenderer, DecisionBoundaryRenderer
 
 
-class Renderer(ABC):
-    @abstractmethod
-    def render(self, original, reconstruction):
-        pass
-
-
-class ComparisonRenderer(Renderer):
-    def render(self, original, reconstruction):
-        pass
-
-
-class DecisionBoundaryRenderer(Renderer):
-    def render(self, original, reconstruction):
-        pass
-
-
-class VisualisationType(Enum):
+class ImageVisualisationType(Enum):
     COMPARISON = 0
     DECISIONBOUNDARY = 1
 
@@ -38,9 +23,9 @@ class RendererFactory:
         return renderer
 
     def _get_renderer(self, visualisation_type):
-        if visualisation_type == VisualisationType.COMPARISON:
+        if visualisation_type == ImageVisualisationType.COMPARISON:
             return ComparisonRenderer()
-        elif visualisation_type == VisualisationType.DECISIONBOUNDARY:
+        elif visualisation_type == ImageVisualisationType.DECISIONBOUNDARY:
             return DecisionBoundaryRenderer()
         else:
             raise ValueError("visualisation type {} not yet supported".format(visualisation_type))

@@ -1,5 +1,3 @@
-import time
-
 import numpy as np
 from tensorflow import keras
 from keras import layers
@@ -70,22 +68,7 @@ class BinaryClassification(KerasMLP):
 
         y_pred = np.asarray(y_pred)
 
-        # reshape y_pred array into the right shape and dimensions for
-        # visualisation with matplotlib
-        y_pred_copy = np.copy(y_pred)
-        y_pred_flatten = []
-
-        for x in range(input_value.shape[0]):
-            row = []
-
-            for y in range(input_value.shape[1]):
-                row.append(y_pred_copy[x, y, 0, 0])
-
-            y_pred_flatten.append(row)
-
-        y_pred_flatten = np.asarray(y_pred_flatten)
-
-        return y_pred_flatten
+        return y_pred
 
     # enable or disable verbose output in training and inference
     def enable_verbose_output(self, verbose_mode):
