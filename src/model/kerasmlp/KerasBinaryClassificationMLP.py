@@ -4,7 +4,7 @@ import numpy as np
 from tensorflow import keras
 from keras import layers
 
-from src.Model import Model
+from src.model.Model import Model
 
 
 class KerasBinaryClassificationMLP(Model):
