@@ -12,7 +12,6 @@ class RendererFactory:
     def __init__(self):
         self.factory_instances = {}
 
-    @staticmethod
     def get(self, visualisation_type):
         if visualisation_type in self.factory_instances.keys():
             return self.factory_instances[visualisation_type]

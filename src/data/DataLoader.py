@@ -9,9 +9,7 @@ class DataLoader:
         image = Image.open(filename).convert('L')
 
         # convert grayscale image into a numpy array
-        image = np.array(image)
-
-        return image
+        return np.array(image)
 
     # normalise input data from 0, 255 to 0, 1 to prepare for binary classification
     @staticmethod

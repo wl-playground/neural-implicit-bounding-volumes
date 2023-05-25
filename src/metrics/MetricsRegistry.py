@@ -1,5 +1,5 @@
 class MetricsRegistry:
-    def __int__(self):
+    def __init__(self):
         self.metrics_registry = {}
 
     def register_counter_metric(self, name):
