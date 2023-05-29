@@ -18,8 +18,10 @@ class DataLoader:
 
         for row in range(result.shape[0]):
             for col in range(result.shape[1]):
-                if result[row, col] == 255:
+                if result[row, col] >= 127.5:
                     result[row, col] = 1
+                else:
+                    result[row, col] = 0
 
         return result
 
