@@ -6,9 +6,10 @@ from src.model.kerasmlp.KerasMLP import KerasMLP
 
 
 class BinaryClassification(KerasMLP):
-    def __init__(self, optimiser, loss, hidden_layers, width, input_dimensions, output_dimensions):
+    def __init__(self, initialiser, optimiser, loss, hidden_layers, width, input_dimensions, output_dimensions):
         super().__init__()
         self.model = keras.Sequential()
+        self.initialiser = initialiser
         self.optimiser = optimiser
         self.loss = loss
         self.hidden_layers = hidden_layers
@@ -18,7 +19,14 @@ class BinaryClassification(KerasMLP):
 
     def build(self):
         # TODO: look at input_shape value
-        self.model.add(keras.layers.Dense(units=self.input_dimensions, activation='linear', input_shape=[2]))
+        self.model.add(
+            keras.layers.Dense(
+                units=self.input_dimensions,
+                activation='linear',
+                input_shape=[2],
+                kernel_initializer=self.initialiser
+            )
+        )
 
         for _ in range(self.hidden_layers):
             self.model.add(layers.Dense(self.width, activation="relu"))
@@ -49,7 +57,6 @@ class BinaryClassification(KerasMLP):
     def test(self):
         pass
 
-    # TODO: improve inference()
     def inference(self, input_value, verbose_mode=1):
         y_pred = []
 

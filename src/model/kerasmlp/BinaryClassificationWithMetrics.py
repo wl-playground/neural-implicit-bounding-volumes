@@ -5,8 +5,8 @@ from src.model.kerasmlp.BinaryClassification import BinaryClassification
 
 # instrument KerasMLP BinaryClassification model class with metrics
 class BinaryClassificationWithMetrics(BinaryClassification):
-    def __init__(self, optimiser, loss, hidden_layers, width, input_dimensions, output_dimensions, metrics_registry):
-        super().__init__(optimiser, loss, hidden_layers, width, input_dimensions, output_dimensions)
+    def __init__(self, initialiser, optimiser, loss, hidden_layers, width, input_dimensions, output_dimensions, metrics_registry):
+        super().__init__(initialiser, optimiser, loss, hidden_layers, width, input_dimensions, output_dimensions)
         self.metrics_registry = metrics_registry
 
     def build(self):
