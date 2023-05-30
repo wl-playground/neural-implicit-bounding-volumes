@@ -6,8 +6,7 @@ from src.model.kerasmlp.KerasMLP import KerasMLP
 
 
 class BinaryClassification(KerasMLP):
-    def __init__(self, hidden_layers, width, input_dimensions, output_dimensions, initialiser="glorot_uniform",
-                 optimiser=keras.optimizers.Adam(learning_rate=0.0001), loss="binary_crossentropy"):
+    def __init__(self, initialiser, optimiser, loss, hidden_layers, width, input_dimensions, output_dimensions):
         super().__init__()
         self.model = keras.Sequential()
         self.initialiser = initialiser

@@ -1,14 +1,11 @@
 import time
-from tensorflow import keras
 
 from src.model.kerasmlp.BinaryClassification import BinaryClassification
 
 
 # instrument KerasMLP BinaryClassification model class with metrics
 class BinaryClassificationWithMetrics(BinaryClassification):
-    def __init__(self, hidden_layers, width, input_dimensions, output_dimensions, metrics_registry,
-                 initialiser="glorot_uniform", optimiser=keras.optimizers.Adam(learning_rate=0.0001),
-                 loss="binary_crossentropy"):
+    def __init__(self, initialiser, optimiser, loss, hidden_layers, width, input_dimensions, output_dimensions, metrics_registry):
         super().__init__(initialiser, optimiser, loss, hidden_layers, width, input_dimensions, output_dimensions)
         self.metrics_registry = metrics_registry
 
