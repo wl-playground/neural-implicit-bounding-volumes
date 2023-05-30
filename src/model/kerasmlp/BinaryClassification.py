@@ -18,20 +18,17 @@ class BinaryClassification(KerasMLP):
         self.output_dimensions = output_dimensions
 
     def build(self):
-        # TODO: look at input_shape value
-        self.model.add(
-            keras.layers.Dense(
-                units=self.input_dimensions,
-                activation='linear',
-                input_shape=[2],
-                kernel_initializer=self.initialiser
-            )
-        )
+        # input layer
+        self.model.add(keras.Input(shape=(self.input_dimensions,)))
 
+        # hidden layers
         for _ in range(self.hidden_layers):
             self.model.add(layers.Dense(self.width, activation="relu"))
 
+        # output layer
         self.model.add(layers.Dense(self.output_dimensions, activation="sigmoid"))
+
+        # model summary
         self.model.summary()
 
     def compile(self):
