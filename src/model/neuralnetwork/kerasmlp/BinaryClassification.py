@@ -2,7 +2,7 @@ import numpy as np
 from tensorflow import keras
 from keras import layers
 
-from src.model.kerasmlp.KerasMLP import KerasMLP
+from src.model.neuralnetwork.kerasmlp.KerasMLP import KerasMLP
 
 
 class BinaryClassification(KerasMLP):

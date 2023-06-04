@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from src.model.Model import Model
+from src.model.neuralnetwork.Model import Model
 
 
 class KerasMLP(Model, ABC):

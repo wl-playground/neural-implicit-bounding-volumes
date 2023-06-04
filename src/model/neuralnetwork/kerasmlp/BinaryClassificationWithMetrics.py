@@ -1,6 +1,6 @@
 import time
 
-from src.model.kerasmlp.BinaryClassification import BinaryClassification
+from src.model.neuralnetwork.kerasmlp.BinaryClassification import BinaryClassification
 
 
 # instrument KerasMLP BinaryClassification model class with metrics

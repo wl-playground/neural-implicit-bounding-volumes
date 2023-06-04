@@ -1,4 +1,3 @@
-from src.model.kerasmlp.BinaryClassification import BinaryClassification
 from src.metrics.MetricsRegistry import MetricsRegistry
 
 if __name__ == "__main__":
