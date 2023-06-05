@@ -3,6 +3,8 @@
 
 from dataclasses import dataclass
 
+from src.model.boundingvolume.BoundingVolume import BoundingVolume
+
 
 @dataclass
 class Point2D:
@@ -23,7 +25,7 @@ class Point3D:
 # rx: 12, ry: 14
 
 @dataclass
-class AABB2D:
+class AABB2D(BoundingVolume):
     """An integer implementation of axis-aligned bounding box"""
     centre: Point2D  # center point of AABB
     radius: tuple[int, int, int]  # radius or halfwidth extents (rx, ry, rz)
@@ -31,6 +33,7 @@ class AABB2D:
     # region R = { (x, y, z) | |c.x-x|<=rx, |c.y-y|<=ry, |c.z-z|<=rz }
     def intersection_test(self, point: Point2D) -> bool:
         intersected_x = abs(self.centre.x - point.x) <= self.radius[0]
+        # print(abs(self.centre.x - point.x), self.radius[0])
         intersected_y = abs(self.centre.y - point.y) <= self.radius[1]
 
         return intersected_x and intersected_y
