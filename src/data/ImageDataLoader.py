@@ -3,7 +3,7 @@ import numpy as np
 from PIL import Image
 
 
-class DataLoader:
+class ImageDataLoader:
     @staticmethod
     def load_binary_image(filename):
         image = Image.open(filename).convert('L')
