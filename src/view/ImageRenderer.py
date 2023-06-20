@@ -45,8 +45,34 @@ class DecisionBoundaryRenderer(ImageRenderer):
     def render(self, original, reconstruction, vmin=0, vmax=255):
         reconstruction = super().model_output_to_matlibplot(reconstruction)
 
+        plt.figure(figsize=(12, 5))
+
         plt.imshow(original, cmap='jet', vmin=vmin, vmax=vmax, interpolation='none')
 
         plt.imshow(reconstruction, cmap='gray', vmin=vmin, vmax=vmax, alpha=0.5, interpolation='none')
 
         plt.show()
+
+
+class SceneRenderer2D(ImageRenderer):
+    def render(self, original, reconstruction, vmin, vmax):
+        # plt.imshow(original, cmap='jet', vmin=vmin, vmax=vmax, interpolation='none')
+
+        # plt.imshow(reconstruction, cmap='gray', vmin=vmin, vmax=vmax, alpha=0.5, interpolation='none', extent=[40, 60, 60, 80])
+
+        plt.imshow(reconstruction, cmap='gray', vmin=vmin, vmax=vmax, alpha=0.5, interpolation='none')
+
+        # from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+        #
+        # fig, ax = plt.subplots()
+        #
+        # imagebox = OffsetImage(reconstruction, zoom=0.4)
+        # imagebox.image.axes = ax
+        #
+        # ab = AnnotationBbox(imagebox, (0.5, 0.5), xycoords='axes fraction',
+        #                     bboxprops={'lw':0})
+        #
+        # ax.add_artist(ab)
+
+        plt.show()
+

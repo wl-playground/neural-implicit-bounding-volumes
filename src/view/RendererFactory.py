@@ -1,11 +1,12 @@
 from enum import Enum
 
-from src.view.ImageRenderer import ComparisonRenderer, DecisionBoundaryRenderer
+from src.view.ImageRenderer import ComparisonRenderer, DecisionBoundaryRenderer, SceneRenderer2D
 
 
 class ImageVisualisationType(Enum):
     COMPARISON = 0
     DECISIONBOUNDARY = 1
+    SCENE2D = 2
 
 
 factory_instances = {}
@@ -26,5 +27,7 @@ def _get_renderer(visualisation_type):
         return ComparisonRenderer()
     elif visualisation_type == ImageVisualisationType.DECISIONBOUNDARY:
         return DecisionBoundaryRenderer()
+    elif visualisation_type == ImageVisualisationType.SCENE2D:
+        return SceneRenderer2D()
     else:
         raise ValueError("visualisation type {} not yet supported".format(visualisation_type))
