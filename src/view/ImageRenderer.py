@@ -17,17 +17,21 @@ class ComparisonRenderer(ImageRenderer):
         axs[0].imshow(original, vmin=vmin, vmax=vmax, cmap='gray')
         axs[1].imshow(reconstruction, vmin=vmin, vmax=vmax, cmap='gray')
 
-        plt.show()
+        fig.show()
+
+        return fig
 
 
 class DecisionBoundaryRenderer(ImageRenderer):
     def render(self, original, reconstruction, vmin=0, vmax=255):
-        plt.figure(figsize=(12, 5))
+        fig = plt.figure(figsize=(12, 5))
 
         plt.imshow(original, cmap='jet', vmin=vmin, vmax=vmax, interpolation='none')
         plt.imshow(reconstruction, cmap='gray', vmin=vmin, vmax=vmax, alpha=0.5, interpolation='none')
 
-        plt.show()
+        fig.show()
+
+        return fig
 
 
 class ComparisonWithOverlayRenderer(ImageRenderer):
@@ -41,7 +45,9 @@ class ComparisonWithOverlayRenderer(ImageRenderer):
         axs[2].imshow(original, cmap='jet', vmin=vmin, vmax=vmax, interpolation='none')
         axs[2].imshow(reconstruction, cmap='gray', vmin=vmin, vmax=vmax, alpha=0.5, interpolation='none')
 
-        plt.show()
+        fig.show()
+
+        return fig
 
 
 # reshape y_pred array from Keras into the right shape and dimensions for visualisation with matplotlib
