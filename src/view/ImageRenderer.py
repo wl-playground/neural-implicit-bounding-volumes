@@ -45,9 +45,7 @@ class ComparisonWithOverlayRenderer(ImageRenderer):
         axs[2].imshow(original, cmap='jet', vmin=vmin, vmax=vmax, interpolation='none')
         axs[2].imshow(reconstruction, cmap='gray', vmin=vmin, vmax=vmax, alpha=0.5, interpolation='none')
 
-        fig.show()
-
-        return fig
+        plt.show()
 
 
 # reshape y_pred array from Keras into the right shape and dimensions for visualisation with matplotlib
